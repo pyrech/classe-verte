@@ -12,7 +12,7 @@ class Content
         $this->key = $key;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         switch ($this->key) {
             case EstCeQueCEst::MORE_THAN_30_DAYS:
@@ -40,7 +40,7 @@ class Content
         throw new \LogicException();
     }
 
-    public function getSubtitle()
+    public function getSubtitle(): string
     {
         switch ($this->key) {
             case EstCeQueCEst::MORE_THAN_30_DAYS:

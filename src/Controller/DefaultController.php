@@ -18,6 +18,8 @@ class DefaultController extends Controller
         $title = $content->getTitle();
         $subtitle = $content->getSubtitle();
 
+        $counter = $this->getCounter();
+
         $html = <<<HTML
 <!doctype html>
 <html class="no-js" lang="fr">
@@ -43,10 +45,82 @@ class DefaultController extends Controller
     <body>
         <p class="msg">$title</p>
         <p class="msg">$subtitle</p>
+        $counter
     </body>
 </html>
 HTML;
 
         return new Response($html);
+    }
+
+    private function getCounter(): string
+    {
+        $start = new \DateTime(getenv('START'));
+        $now = new \DateTime();
+
+        if ($now >= $start) {
+            return '';
+        }
+
+        $timestamp = (int) $start->getTimestamp();
+        $diff = $now->diff($start);
+
+        return <<<HTML
+<div class="counter">
+    Temps restant avant la classe verte:
+    <span class="part days">
+        <span class="number">{$diff->days}</span>
+        <span class="unit">{$this->getDirtyFrenchPlurial($diff->days, 'jour', 'jours')}</span>,
+    </span>
+    <span class="part hours">
+        <span class="number">{$diff->h}</span>
+        <span class="unit">{$this->getDirtyFrenchPlurial($diff->h, 'heure', 'heures')}</span>,
+    </span>
+    <span class="part minutes">
+        <span class="number">{$diff->i}</span>
+        <span class="unit">{$this->getDirtyFrenchPlurial($diff->i, 'minute', 'minutes')}</span>
+        et
+    </span>
+    <span class="part seconds">
+        <span class="number">{$diff->s}</span>
+        <span class="unit">{$this->getDirtyFrenchPlurial($diff->s, 'seconde', 'secondes')}</span>
+    </span>
+</div>
+<script type="text/javascript">
+var dn = document.querySelector('.counter .days .number');
+var du = document.querySelector('.counter .days .unit');
+var hn = document.querySelector('.counter .hours .number');
+var hu = document.querySelector('.counter .hours .unit');
+var mn = document.querySelector('.counter .minutes .number');
+var mu = document.querySelector('.counter .minutes .unit');
+var sn = document.querySelector('.counter .seconds .number');
+var su = document.querySelector('.counter .seconds .unit');
+
+var a = function(c, s, p) {return c >= 1 ? p : s;};
+var b = function() {
+  var t = {$timestamp} - new Date().getTime()/1000;
+  var d = Math.floor( t/(60*60*24) );
+  var h = Math.floor( (t/(60*60)) % 24 );
+  var m = Math.floor( (t/60) % 60 );
+  var s = Math.floor( (t) % 60 );
+
+  dn.innerHTML = d;
+  du.innerHTML = a(d, 'jour', 'jours');
+  hn.innerHTML = h;
+  hu.innerHTML = a(h, 'heure', 'heures');
+  mn.innerHTML = m;
+  mu.innerHTML = a(m, 'minute', 'minutes');
+  sn.innerHTML = s;
+  su.innerHTML = a(s, 'seconde', 'secondes');
+};
+window.setInterval(b, 1000);
+b();
+</script>
+HTML;
+    }
+
+    private function getDirtyFrenchPlurial(int $count, string $singular, string $plurial): string
+    {
+        return $count > 1 ? $plurial : $singular;
     }
 }
