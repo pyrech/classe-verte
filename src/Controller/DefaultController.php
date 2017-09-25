@@ -22,12 +22,13 @@ class DefaultController extends Controller
 
         $html = <<<HTML
 <!doctype html>
-<html class="no-js" lang="fr">
+<html class="no-js" lang="fr" prefix="og: http://ogp.me/ns#">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Est-ce que c'est bientôt la classe verte ?</title>
         <meta name="description" content="">
+        <meta property="og:title" content="Est-ce que c'est bientôt la classe verte ?" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <style type="text/css">
