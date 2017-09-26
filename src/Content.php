@@ -48,7 +48,7 @@ class Content
             case EstCeQueCEst::MORE_THAN_7_DAYS:
                 return 'Mais ça se rapproche tranquillement';
             case EstCeQueCEst::MORE_THAN_2_DAYS:
-                return 'Courage, c\'est';
+                return 'Courage, plus que quelques jours à tenir';
             case EstCeQueCEst::MORE_THAN_24_HOURS:
                 return 'Ta valise est prête ?';
             case EstCeQueCEst::MORE_THAN_12_HOURS:
