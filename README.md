@@ -13,4 +13,4 @@ $estCeQueCEst->bientotLaClasseVerte();
 
 ## Deploy
 
-A simple `git pull` on the server ¯\_(ツ)_/¯
+A simple `git pull` on the server ¯\\\_(ツ)\_/¯
