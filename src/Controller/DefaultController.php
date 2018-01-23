@@ -31,12 +31,11 @@ class DefaultController extends Controller
         <title>Est-ce que c'est bientôt la classe verte ?</title>
         <meta name="description" content="$title" />
         <meta property="og:title" content="Est-ce que c'est bientôt la classe verte ?" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:description" content="$title" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="$url" />
         <meta property="og:locale" content="fr" />
-
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <style type="text/css">
             body {
