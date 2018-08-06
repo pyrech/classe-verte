@@ -3,14 +3,19 @@
     "license": "proprietary",
     "require": {
         "php": "^7.1.3",
-        "symfony/dotenv": "^3.3",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "symfony/console": "^4.1",
         "symfony/flex": "^1.0",
-        "symfony/framework-bundle": "^3.3",
-        "symfony/yaml": "^3.3"
+        "symfony/framework-bundle": "^4.1",
+        "symfony/lts": "^4@dev",
+        "symfony/yaml": "^4.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.3",
-        "symfony/profiler-pack": "^1.0"
+        "symfony/dotenv": "^4.1",
+        "symfony/profiler-pack": "^1.0",
+        "symfony/test-pack": "^1.0",
+        "symfony/web-server-bundle": "^4.1"
     },
     "config": {
         "preferred-install": {
@@ -28,10 +33,17 @@
             "App\\Tests\\": "tests/"
         }
     },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
     "scripts": {
         "auto-scripts": {
-            "make cache-warmup": "script",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -41,13 +53,10 @@
         ]
     },
     "conflict": {
-        "symfony/symfony": "*",
-        "symfony/twig-bundle": "<3.3",
-        "symfony/debug": "<3.3"
+        "symfony/symfony": "*"
     },
     "extra": {
         "symfony": {
-            "id": "01BTTPZGSKJFYS2RSE14W43J1W",
             "allow-contrib": false
         }
     }

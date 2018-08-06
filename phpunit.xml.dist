@@ -10,10 +10,14 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <env name="KERNEL_CLASS" value="App\Kernel" />
-        <env name="APP_ENV" value="test" />
-        <env name="APP_DEBUG" value="1" />
-        <env name="APP_SECRET" value="s$cretf0rt3st" />
         <!-- define your env variables for the test env here -->
+
+        <!-- ###+ symfony/framework-bundle ### -->
+        <env name="APP_ENV" value="dev"/>
+        <env name="APP_SECRET" value="438b46dc867f63449cce63658a52de18"/>
+        <!-- env name="TRUSTED_PROXIES" value="127.0.0.1,127.0.0.2" -->
+        <!-- env name="TRUSTED_HOSTS" value="localhost,example.com" -->
+        <!-- ###- symfony/framework-bundle ### -->
     </php>
 
     <testsuites>
