@@ -82,4 +82,13 @@ class EstCeQueCEst
 
         return self::LESS_THAN_1_HOUR;
     }
+
+    public function getRemainingDays(\DateTime $now = null): int
+    {
+        $now = $now ?: new \DateTime();
+
+        $diff = $now->diff($this->start);
+
+        return (int) $diff->days;
+    }
 }
