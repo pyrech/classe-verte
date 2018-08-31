@@ -5,6 +5,7 @@ namespace App;
 class EstCeQueCEst
 {
     const MORE_THAN_30_DAYS = '30j+';
+    const MORE_THAN_14_DAYS = '14j+';
     const MORE_THAN_7_DAYS = '7j+';
     const MORE_THAN_2_DAYS = '2j+';
     const MORE_THAN_24_HOURS = '24h+';
@@ -54,6 +55,10 @@ class EstCeQueCEst
 
         if ($diff->days > 30) {
             return self::MORE_THAN_30_DAYS;
+        }
+
+        if ($diff->days > 14) {
+            return self::MORE_THAN_14_DAYS;
         }
 
         if ($diff->days > 7) {

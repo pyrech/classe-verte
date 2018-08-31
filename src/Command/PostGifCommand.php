@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Content;
 use App\EstCeQueCEst;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,16 +27,20 @@ class PostGifCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $nbDays = $this->estCeQueCEst->getRemainingDays();
-        $image = sprintf('https://classe-verte.fr/images/J%s.gif?', $nbDays).uniqid();
 
         if ($nbDays > 60) {
             return;
-        } elseif($this->is404($image)) {
+        }
+
+        $image = sprintf('https://classe-verte.fr/images/J%s.gif?', $nbDays).uniqid();
+
+        if($this->is404($image)) {
             $output->writeln(sprintf('No gif for today (nbDays = %s)', $nbDays));
             return;
         }
 
-        $data = 'payload=' . json_encode($this->getSlackPayload($nbDays, $image));
+        $content = new Content($this->estCeQueCEst->bientotLaClasseVerte());
+        $data = 'payload=' . json_encode($this->getSlackPayload($content, $image));
 
         $ch = curl_init(getenv('SLACK_WEBHOOK_URL'));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -49,15 +54,15 @@ class PostGifCommand extends Command
         }
     }
 
-    private function getSlackPayload(int $nbDays, $image): array
+    private function getSlackPayload(Content $content, $image): array
     {
         return [
             'username' => 'Est-ce que c\'est bientôt la classe verte ?',
             'attachments' => [
                 [
-                    'title' => 'J'.($nbDays ? '-' : '+').abs($nbDays),
+                    'title' => sprintf('%s %s', $content->getTitle(), $content->getSubtitle()),
                     'title_link' => 'https://estcequecestbientotlaclasseverte.fr',
-                    'fallback' => $nbDays,
+                    'fallback' => sprintf('%s %s', $content->getTitle(), $content->getSubtitle()),
                     'image_url' => $image,
                 ],
                 [

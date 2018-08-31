@@ -17,20 +17,22 @@ class Content
         switch ($this->key) {
             case EstCeQueCEst::MORE_THAN_30_DAYS:
                 return 'Non !';
+            case EstCeQueCEst::MORE_THAN_14_DAYS:
+                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_7_DAYS:
-                return 'Non !';
+                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_2_DAYS:
-                return 'Presque...';
+                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_24_HOURS:
-                return 'Presque...';
+                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_12_HOURS:
-                return 'Presque...';
+                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_6_HOURS:
-                return 'Presque...';
+                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_1_HOUR:
-                return 'Presque...';
+                return 'Oui !';
             case EstCeQueCEst::LESS_THAN_1_HOUR:
-                return 'Presque...';
+                return 'Oui !';
             case EstCeQueCEst::IT_S_NOW:
                 return 'C\'est maintenant \o/';
             case EstCeQueCEst::IT_S_OVER:
@@ -45,10 +47,12 @@ class Content
         switch ($this->key) {
             case EstCeQueCEst::MORE_THAN_30_DAYS:
                 return 'C\'est dans looooongtemps :\'(';
+            case EstCeQueCEst::MORE_THAN_14_DAYS:
+                return 'Encore quelques semaines à patienter !';
             case EstCeQueCEst::MORE_THAN_7_DAYS:
-                return 'Mais ça se rapproche tranquillement';
+                return 'Moins de 2 semaines \o/';
             case EstCeQueCEst::MORE_THAN_2_DAYS:
-                return 'Courage, plus que quelques jours à tenir';
+                return 'Courage, plus que quelques jours à tenir !';
             case EstCeQueCEst::MORE_THAN_24_HOURS:
                 return 'Ta valise est prête ?';
             case EstCeQueCEst::MORE_THAN_12_HOURS:
