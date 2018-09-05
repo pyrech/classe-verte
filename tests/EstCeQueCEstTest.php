@@ -33,8 +33,12 @@ class EstCeQueCEstTest extends TestCase
             $this->estCeQueCEst->bientotLaClasseVerte(new \DateTime('2017-09-08 12:00:00'))
         );
         self::assertSame(
-            EstCeQueCEst::MORE_THAN_2_DAYS,
+            EstCeQueCEst::MORE_THAN_3_DAYS,
             $this->estCeQueCEst->bientotLaClasseVerte(new \DateTime('2017-09-15 12:00:00'))
+        );
+        self::assertSame(
+            EstCeQueCEst::MORE_THAN_2_DAYS,
+            $this->estCeQueCEst->bientotLaClasseVerte(new \DateTime('2017-09-17 12:00:00'))
         );
         self::assertSame(
             EstCeQueCEst::MORE_THAN_24_HOURS,

@@ -7,6 +7,7 @@ class EstCeQueCEst
     const MORE_THAN_30_DAYS = '30j+';
     const MORE_THAN_14_DAYS = '14j+';
     const MORE_THAN_7_DAYS = '7j+';
+    const MORE_THAN_3_DAYS = '3j+';
     const MORE_THAN_2_DAYS = '2j+';
     const MORE_THAN_24_HOURS = '24h+';
     const MORE_THAN_12_HOURS = '12h+';
@@ -63,6 +64,10 @@ class EstCeQueCEst
 
         if ($diff->days > 7) {
             return self::MORE_THAN_7_DAYS;
+        }
+
+        if ($diff->days > 3) {
+            return self::MORE_THAN_3_DAYS;
         }
 
         if ($diff->days > 2) {

@@ -18,19 +18,13 @@ class Content
             case EstCeQueCEst::MORE_THAN_30_DAYS:
                 return 'Non !';
             case EstCeQueCEst::MORE_THAN_14_DAYS:
-                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_7_DAYS:
-                return 'Oui !';
+            case EstCeQueCEst::MORE_THAN_3_DAYS:
             case EstCeQueCEst::MORE_THAN_2_DAYS:
-                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_24_HOURS:
-                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_12_HOURS:
-                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_6_HOURS:
-                return 'Oui !';
             case EstCeQueCEst::MORE_THAN_1_HOUR:
-                return 'Oui !';
             case EstCeQueCEst::LESS_THAN_1_HOUR:
                 return 'Oui !';
             case EstCeQueCEst::IT_S_NOW:
@@ -51,12 +45,14 @@ class Content
                 return 'Encore quelques semaines à patienter !';
             case EstCeQueCEst::MORE_THAN_7_DAYS:
                 return 'Moins de 2 semaines \o/';
+            case EstCeQueCEst::MORE_THAN_3_DAYS:
+                return 'C\'est bientôôôôt !';
             case EstCeQueCEst::MORE_THAN_2_DAYS:
-                return 'Courage, plus que quelques jours à tenir !';
+                return 'Prêt pour ta meilleure semaine de l\'année ?';
             case EstCeQueCEst::MORE_THAN_24_HOURS:
                 return 'Ta valise est prête ?';
             case EstCeQueCEst::MORE_THAN_12_HOURS:
-                return 'Dernier jour avant ta meilleure semaine de l\'année !';
+                return 'Dernier dodo !';
             case EstCeQueCEst::MORE_THAN_6_HOURS:
                 return 'Ce soir, on se la colle !';
             case EstCeQueCEst::MORE_THAN_1_HOUR:
