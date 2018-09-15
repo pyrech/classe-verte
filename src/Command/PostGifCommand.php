@@ -28,7 +28,7 @@ class PostGifCommand extends Command
     {
         $nbDays = $this->estCeQueCEst->getRemainingDays();
 
-        if ($nbDays > 60) {
+        if ($nbDays > 60 || $nbDays < 0) {
             return;
         }
 
