@@ -15,7 +15,6 @@ class DefaultController extends Controller
         return $this->render('default/index.html.twig', [
             'title' => $content->getTitle(),
             'subtitle' => $content->getSubtitle(),
-            'counter' => $this->getCounter(),
             'start' => new \DateTime(getenv('START')),
             'now' => new \DateTime(),
         ]);
