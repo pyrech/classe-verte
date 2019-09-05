@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Content;
 use App\EstCeQueCEst;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends Controller
 {

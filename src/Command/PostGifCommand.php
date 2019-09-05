@@ -34,13 +34,14 @@ class PostGifCommand extends Command
 
         $image = sprintf('https://classe-verte.fr/images/J%s.gif?', $nbDays).uniqid();
 
-        if($this->is404($image)) {
+        if ($this->is404($image)) {
             $output->writeln(sprintf('No gif for today (nbDays = %s)', $nbDays));
+
             return;
         }
 
         $content = new Content($this->estCeQueCEst->bientotLaClasseVerte());
-        $data = 'payload=' . json_encode($this->getSlackPayload($content, $image));
+        $data = 'payload='.json_encode($this->getSlackPayload($content, $image));
 
         $ch = curl_init(getenv('SLACK_WEBHOOK_URL'));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -49,7 +50,7 @@ class PostGifCommand extends Command
         $result = curl_exec($ch);
         curl_close($ch);
 
-        if ($result !== 'ok') {
+        if ('ok' !== $result) {
             $output->writeln(sprintf('Slack returned "%s"', $result));
         }
     }
@@ -74,11 +75,12 @@ class PostGifCommand extends Command
     }
 
     /**
-     * Quick and dirty
+     * Quick and dirty.
      */
     private function is404(string $url): bool
     {
         $headers = get_headers($url);
-        return substr($headers[0], 9, 3) === '404';
+
+        return '404' === substr($headers[0], 9, 3);
     }
 }
