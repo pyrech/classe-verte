@@ -2,7 +2,6 @@ ifndef APP_ENV
 	include .env
 endif
 
-
 ###> symfony/framework-bundle ###
 CONSOLE := $(shell which bin/console)
 sf_console:

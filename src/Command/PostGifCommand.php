@@ -19,17 +19,17 @@ class PostGifCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Send gif to Slack with remaining days');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $nbDays = $this->estCeQueCEst->getRemainingDays();
 
         if ($nbDays > 60 || $nbDays < 0) {
-            return;
+            return 0;
         }
 
         $image = sprintf('https://classe-verte.fr/images/J%s.gif?', $nbDays).uniqid();
@@ -37,7 +37,7 @@ class PostGifCommand extends Command
         if ($this->is404($image)) {
             $output->writeln(sprintf('No gif for today (nbDays = %s)', $nbDays));
 
-            return;
+            return 0;
         }
 
         $content = new Content($this->estCeQueCEst->bientotLaClasseVerte());
@@ -53,6 +53,8 @@ class PostGifCommand extends Command
         if ('ok' !== $result) {
             $output->writeln(sprintf('Slack returned "%s"', $result));
         }
+
+        return 0;
     }
 
     private function getSlackPayload(Content $content, $image): array
