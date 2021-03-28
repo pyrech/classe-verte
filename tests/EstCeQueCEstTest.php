@@ -10,7 +10,7 @@ class EstCeQueCEstTest extends TestCase
     /** @var EstCeQueCEst */
     private $estCeQueCEst;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->estCeQueCEst = new EstCeQueCEst(
             '2017-09-20 18:00:00',

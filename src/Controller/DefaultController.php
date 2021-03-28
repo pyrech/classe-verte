@@ -15,7 +15,7 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'title' => $content->getTitle(),
             'subtitle' => $content->getSubtitle(),
-            'start' => new \DateTime(getenv('START')),
+            'start' => new \DateTime($_ENV['START']),
             'now' => new \DateTime(),
         ]);
     }
