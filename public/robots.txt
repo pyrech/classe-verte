@@ -1,0 +1,9 @@
+# www.robotstxt.org/
+# http://code.google.com/web/controlcrawlindex/
+Sitemap: https://estcequecestbientotlaclasseverte.fr/sitemap.xml
+
+User-agent: *
+Allow: /
+
+User-agent: Justin Bieber fan
+Disallow: *

@@ -15,7 +15,7 @@
             text-align:center;
             padding-top:40px
         }
-        p.msg {
+        h1.msg, p.msg {
             font-family:Verdana;
             font-size:40px;
             padding-bottom:40px
@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block body %}
-    <p class="msg">{{ title }}</p>
+    <h1 class="msg">{{ title }}</h1>
     <p class="msg">{{ subtitle }}</p>
     {% if now < start %}
         {% set diff = now.diff(start) %}
