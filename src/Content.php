@@ -28,7 +28,7 @@ class Content
             case EstCeQueCEst::LESS_THAN_1_HOUR:
                 return 'Oui !';
             case EstCeQueCEst::IT_S_NOW:
-                return 'C\'est maintenant \o/';
+                return 'C\'est maintenant 😎';
             case EstCeQueCEst::IT_S_OVER:
                 return 'C\'est terminé !';
         }
@@ -40,11 +40,11 @@ class Content
     {
         switch ($this->key) {
             case EstCeQueCEst::MORE_THAN_30_DAYS:
-                return 'C\'est dans looooongtemps :\'(';
+                return 'C\'est dans looooongtemps 😢';
             case EstCeQueCEst::MORE_THAN_14_DAYS:
                 return 'Encore quelques semaines à patienter !';
             case EstCeQueCEst::MORE_THAN_7_DAYS:
-                return 'Moins de 2 semaines \o/';
+                return 'Moins de 2 semaines 🎉';
             case EstCeQueCEst::MORE_THAN_3_DAYS:
                 return 'C\'est bientôôôôt !';
             case EstCeQueCEst::MORE_THAN_2_DAYS:
@@ -56,13 +56,13 @@ class Content
             case EstCeQueCEst::MORE_THAN_6_HOURS:
                 return 'Ce soir, on se la colle !';
             case EstCeQueCEst::MORE_THAN_1_HOUR:
-                return 'Courage, encore quelques heures à tenir ;)';
+                return 'Courage, encore quelques heures à tenir 😉';
             case EstCeQueCEst::LESS_THAN_1_HOUR:
                 return 'On est d\'accord que plus personne ne bosse, là, non ?';
             case EstCeQueCEst::IT_S_NOW:
-                return 'Qu\'est ce que tu fais ici ?? Profite !';
+                return 'Qu\'est ce que tu fais ici ?? Profite ! 🍻';
             case EstCeQueCEst::IT_S_OVER:
-                return 'Sniff, c\'est déjà terminé :\'(';
+                return 'Sniff, c\'est déjà terminé 😢';
         }
 
         throw new \LogicException();
