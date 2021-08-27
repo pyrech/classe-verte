@@ -11,11 +11,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 class PostGifCommand extends Command
 {
     protected static $defaultName = 'app:post-gif';
-    private $estCeQueCEst;
 
-    public function __construct(EstCeQueCEst $estCeQueCEst)
+    private EstCeQueCEst $estCeQueCEst;
+    private string $kernelProjectDir;
+
+    public function __construct(EstCeQueCEst $estCeQueCEst, string $kernelProjectDir)
     {
         $this->estCeQueCEst = $estCeQueCEst;
+        $this->kernelProjectDir = $kernelProjectDir;
         parent::__construct();
     }
 
@@ -32,16 +35,16 @@ class PostGifCommand extends Command
             return 0;
         }
 
-        $image = sprintf('https://classe-verte.fr/images/J%s.gif?', $nbDays).uniqid();
+        $imagePublicPath = sprintf('images/J%s.gif', $nbDays);
 
-        if ($this->is404($image)) {
+        if (!file_exists($this->kernelProjectDir . '/public/' . $imagePublicPath)) {
             $output->writeln(sprintf('No gif for today (nbDays = %s)', $nbDays));
 
             return 0;
         }
 
         $content = new Content($this->estCeQueCEst->bientotLaClasseVerte());
-        $data = 'payload='.json_encode($this->getSlackPayload($content, $image));
+        $data = 'payload='.json_encode($this->getSlackPayload($content, $imagePublicPath));
 
         $ch = curl_init(getenv('SLACK_WEBHOOK_URL'));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -57,7 +60,7 @@ class PostGifCommand extends Command
         return 0;
     }
 
-    private function getSlackPayload(Content $content, $image): array
+    private function getSlackPayload(Content $content, string $imagePublicPath): array
     {
         return [
             'username' => 'Est-ce que c\'est bientôt la classe verte ?',
@@ -66,11 +69,7 @@ class PostGifCommand extends Command
                     'title' => sprintf('%s %s', $content->getTitle(), $content->getSubtitle()),
                     'title_link' => 'https://estcequecestbientotlaclasseverte.fr',
                     'fallback' => sprintf('%s %s', $content->getTitle(), $content->getSubtitle()),
-                    'image_url' => $image,
-                ],
-                [
-                    'fallback' => 'footer',
-                    'footer' => 'estcequecestbientotlaclasseverte.fr, en étroite collaboration avec classe-verte.fr',
+                    'image_url' => 'https://estcequecestbientotlaclasseverte.fr/' . $imagePublicPath . '?' . uniqid(),
                 ],
             ],
         ];
