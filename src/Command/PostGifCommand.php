@@ -91,14 +91,4 @@ class PostGifCommand extends Command
             ],
         ];
     }
-
-    /**
-     * Quick and dirty.
-     */
-    private function is404(string $url): bool
-    {
-        $headers = get_headers($url);
-
-        return '404' === substr($headers[0], 9, 3);
-    }
 }
