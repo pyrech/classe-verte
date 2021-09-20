@@ -37,8 +37,11 @@ class EstCeQueCEst
         $now = $now ?: new \DateTime();
 
         if ($now > $this->end) {
-            // Classe Verte has ended today
-            if ($now->format('Y-m-d') === $this->end->format('Y-m-d')) {
+            $endOver = clone $this->end;
+            $endOver->add(new \DateInterval('P7D'));
+
+            // Classe Verte has ended recently
+            if ($now < $endOver) {
                 return self::IT_S_OVER;
             }
 

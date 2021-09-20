@@ -57,7 +57,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% if now < start %}
-        <script nonce="bGUgZ3JhcyBjJ2VzdCBsYSB2aWU=" async>
+        <script async>
             (async () => {
                 var dn = document.querySelector('.counter .days .number');
                 var du = document.querySelector('.counter .days .unit');
@@ -88,12 +88,14 @@
                 window.setInterval(b, 1000);
                 b();
             })();
-
-            if ('serviceWorker' in window.navigator) {
-              window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/service-worker.js');
-              });
-            }
         </script>
     {% endif %}
+
+    <script async>
+        if ('serviceWorker' in window.navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.getRegistrations().then( function(registrations) { for(let registration of registrations) {  registration.unregister(); } });
+            });
+        }
+    </script>
 {% endblock %}
