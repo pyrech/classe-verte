@@ -99,6 +99,7 @@ class EstCeQueCEst
 
         $diff = $now->diff($this->start);
 
-        return (int) $diff->days;
+
+        return (int) $diff->days * ($diff->invert ? -1 : 1);
     }
 }
