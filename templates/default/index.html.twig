@@ -68,7 +68,7 @@
                 var sn = document.querySelector('.counter .seconds .number');
                 var su = document.querySelector('.counter .seconds .unit');
 
-                var a = function(c, s, p) {return c >= 1 ? p : s;};
+                var a = function(c, s, p) {return c > 1 ? p : s;};
                 var b = function() {
                     var t = {{ start.timestamp }} - new Date().getTime()/1000;
                     var d = Math.floor( t/(60*60*24) );
