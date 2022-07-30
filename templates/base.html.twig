@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html class="no-js" lang="fr" prefix="og: http://ogp.me/ns#">
     <head>
-        <meta charset="utf-8" />
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {% block seo %}
-            <title>Est-ce que c'est bientôt la classe verte ?</title>
+            <title>{% block title %}Est-ce que c'est bientôt la classe verte ?{% endblock %}</title>
             <meta property="og:title" content="Est-ce que c'est bientôt la classe verte ?" />
         {% endblock %}
         <meta name="author" content="@pyrech for JoliCode">
@@ -25,6 +25,5 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
     </body>
 </html>
