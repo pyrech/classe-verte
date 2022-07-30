@@ -21,7 +21,7 @@ class PostGifCommand extends Command
         private LoggerInterface $logger,
         private string $kernelProjectDir,
         private string $slackWebhookUrl,
-    ){
+    ) {
         parent::__construct();
     }
 
