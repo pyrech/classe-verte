@@ -4,12 +4,9 @@ namespace App;
 
 class Content
 {
-    /** @var string */
-    private $key;
-
-    public function __construct(string $key)
-    {
-        $this->key = $key;
+    public function __construct(
+        private string $key,
+    ) {
     }
 
     public function getTitle(): string

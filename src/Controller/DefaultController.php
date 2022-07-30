@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Content;
 use App\EstCeQueCEst;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
+    #[Route('/', name: 'index')]
     public function index(EstCeQueCEst $estCeQueCEst)
     {
         $content = new Content($estCeQueCEst->bientotLaClasseVerte());
@@ -15,7 +17,7 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'title' => $content->getTitle(),
             'subtitle' => $content->getSubtitle(),
-            'start' => new \DateTime($_ENV['START']),
+            'start' => $estCeQueCEst->getStart(),
             'now' => new \DateTime(),
         ]);
     }

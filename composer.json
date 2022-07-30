@@ -2,31 +2,39 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.4.0",
+        "php": "^8.1.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "symfony/console": "^5.2",
-        "symfony/dotenv": "^5.2",
-        "symfony/flex": "^1.3.1",
-        "symfony/framework-bundle": "^5.2",
-        "symfony/http-client": "5.3.*",
+        "symfony/console": "*",
+        "symfony/dotenv": "*",
+        "symfony/flex": "^2.1",
+        "symfony/framework-bundle": "*",
+        "symfony/http-client": "*",
         "symfony/monolog-bundle": "^3.6",
-        "symfony/twig-bundle": "^5.2",
-        "symfony/yaml": "^5.2"
+        "symfony/runtime": "*",
+        "symfony/twig-bundle": "*",
+        "symfony/yaml": "*"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.9",
         "phpunit/phpunit": "^9.5",
-        "symfony/browser-kit": "^5.3",
-        "symfony/css-selector": "^5.3",
-        "symfony/phpunit-bridge": "^5.3",
-        "symfony/stopwatch": "^5.3",
-        "symfony/web-profiler-bundle": "^5.3"
+        "symfony/browser-kit": "*",
+        "symfony/css-selector": "*",
+        "symfony/debug-bundle": "*",
+        "symfony/maker-bundle": "^1.45",
+        "symfony/phpunit-bridge": "*",
+        "symfony/stopwatch": "*",
+        "symfony/web-profiler-bundle": "*"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
     },
     "autoload": {
         "psr-4": {
@@ -65,7 +73,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.3.*"
+            "require": "6.1.*"
         }
     }
 }

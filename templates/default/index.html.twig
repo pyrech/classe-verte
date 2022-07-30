@@ -15,7 +15,13 @@
             text-align:center;
             padding-top:40px
         }
-        h1.msg, p.msg {
+        .hidden {
+            display: none;
+        }
+        p.title {
+            font-weight: bold;
+        }
+        p.title, p.subtitle {
             font-family:Verdana;
             font-size:40px;
             padding-bottom:40px
@@ -24,8 +30,9 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="msg">{{ title }}</h1>
-    <p class="msg">{{ subtitle }}</p>
+    <h1 class="hidden">Est-ce que c'est bientôt la classe verte ?</h1>
+    <p class="title">{{ title }}</p>
+    <p class="subtitle">{{ subtitle }}</p>
     {% if now < start %}
         {% set diff = now.diff(start) %}
         {% macro getDirtyFrenchPlurial(count, singular, plural) %}

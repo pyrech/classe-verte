@@ -5,33 +5,24 @@ namespace App\Command;
 use App\Content;
 use App\EstCeQueCEst;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+#[AsCommand(name: 'app:post-gif', description: 'Send gif to Slack with remaining days')]
 class PostGifCommand extends Command
 {
-    protected static $defaultName = 'app:post-gif';
-
-    private EstCeQueCEst $estCeQueCEst;
-    private HttpClientInterface $httpClient;
-    private LoggerInterface $logger;
-    private string $kernelProjectDir;
-
-    public function __construct(EstCeQueCEst $estCeQueCEst, HttpClientInterface $httpClient, LoggerInterface $logger, string $kernelProjectDir)
-    {
-        $this->estCeQueCEst = $estCeQueCEst;
-        $this->httpClient = $httpClient;
-        $this->logger = $logger;
-        $this->kernelProjectDir = $kernelProjectDir;
+    public function __construct(
+        private EstCeQueCEst $estCeQueCEst,
+        private HttpClientInterface $httpClient,
+        private LoggerInterface $logger,
+        private string $kernelProjectDir,
+        private string $slackWebhookUrl,
+    ) {
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this->setDescription('Send gif to Slack with remaining days');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -39,7 +30,7 @@ class PostGifCommand extends Command
         $nbDays = $this->estCeQueCEst->getRemainingDays();
 
         if ($nbDays > 60 || $nbDays < 0) {
-            return 0;
+            return self::SUCCESS;
         }
 
         $imagePublicPath = sprintf('images/J%s.gif', $nbDays);
@@ -47,7 +38,7 @@ class PostGifCommand extends Command
         if (!file_exists($this->kernelProjectDir . '/public/' . $imagePublicPath)) {
             $this->logger->notice(sprintf('No gif for today (nbDays = %s)', $nbDays));
 
-            return 0;
+            return self::SUCCESS;
         }
 
         $content = new Content($this->estCeQueCEst->bientotLaClasseVerte());
@@ -56,7 +47,7 @@ class PostGifCommand extends Command
         try {
             $response = $this->httpClient->request(
                 'POST',
-                $_SERVER['SLACK_WEBHOOK_URL'],
+                $this->slackWebhookUrl,
                 [
                     'json' => $payload,
                 ]
@@ -73,7 +64,7 @@ class PostGifCommand extends Command
             ]);
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function getSlackPayload(Content $content, string $imagePublicPath): array

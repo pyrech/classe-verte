@@ -4,29 +4,38 @@ namespace App;
 
 class EstCeQueCEst
 {
-    const MORE_THAN_30_DAYS = '30j+';
-    const MORE_THAN_14_DAYS = '14j+';
-    const MORE_THAN_7_DAYS = '7j+';
-    const MORE_THAN_3_DAYS = '3j+';
-    const MORE_THAN_2_DAYS = '2j+';
-    const MORE_THAN_24_HOURS = '24h+';
-    const MORE_THAN_12_HOURS = '12h+';
-    const MORE_THAN_6_HOURS = '6h+';
-    const MORE_THAN_1_HOUR = '1h+';
-    const LESS_THAN_1_HOUR = '1h-';
-    const IT_S_NOW = 'now';
-    const IT_S_OVER = 'over';
+    public const MORE_THAN_30_DAYS = '30j+';
+    public const MORE_THAN_14_DAYS = '14j+';
+    public const MORE_THAN_7_DAYS = '7j+';
+    public const MORE_THAN_3_DAYS = '3j+';
+    public const MORE_THAN_2_DAYS = '2j+';
+    public const MORE_THAN_24_HOURS = '24h+';
+    public const MORE_THAN_12_HOURS = '12h+';
+    public const MORE_THAN_6_HOURS = '6h+';
+    public const MORE_THAN_1_HOUR = '1h+';
+    public const LESS_THAN_1_HOUR = '1h-';
+    public const IT_S_NOW = 'now';
+    public const IT_S_OVER = 'over';
 
-    /** @var \DateTime */
-    private $start;
+    private \DateTime $start;
+    private \DateTime $end;
 
-    /** @var \DateTime */
-    private $end;
-
-    public function __construct(string $start, string $end)
-    {
+    public function __construct(
+        string $start,
+        string $end,
+    ) {
         $this->start = new \DateTime($start);
         $this->end = new \DateTime($end);
+    }
+
+    public function getStart(): \DateTime
+    {
+        return $this->start;
+    }
+
+    public function getEnd(): \DateTime
+    {
+        return $this->end;
     }
 
     /**
@@ -98,7 +107,6 @@ class EstCeQueCEst
         $now = $now ?: new \DateTime();
 
         $diff = $now->diff($this->start);
-
 
         return (int) $diff->days * ($diff->invert ? -1 : 1);
     }
