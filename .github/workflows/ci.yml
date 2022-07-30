@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  schedule:
+    -   cron: '0 0 * * MON'
+
+jobs:
+  check-cs:
+    name: Check Coding Standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+
+      - name: Install Composer dependencies
+        run: |
+          composer update --prefer-dist --no-interaction
+
+      - name: Run php-cs-fixer
+        run: |
+          vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
+
+  tests:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP, with composer and extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+
+      - name: Install Composer dependencies
+        run: |
+          composer update --prefer-dist --no-interaction
+
+      - name: Run PHPUnit
+        run: php bin/phpunit
