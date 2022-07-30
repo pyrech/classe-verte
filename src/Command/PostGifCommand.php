@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-#[AsCommand(name: 'app:post-gif')]
+#[AsCommand(name: 'app:post-gif', description: 'Send gif to Slack with remaining days')]
 class PostGifCommand extends Command
 {
     public function __construct(
@@ -25,17 +25,12 @@ class PostGifCommand extends Command
         parent::__construct();
     }
 
-    protected function configure(): void
-    {
-        $this->setDescription('Send gif to Slack with remaining days');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $nbDays = $this->estCeQueCEst->getRemainingDays();
 
         if ($nbDays > 60 || $nbDays < 0) {
-            return 0;
+            return self::SUCCESS;
         }
 
         $imagePublicPath = sprintf('images/J%s.gif', $nbDays);
@@ -43,7 +38,7 @@ class PostGifCommand extends Command
         if (!file_exists($this->kernelProjectDir . '/public/' . $imagePublicPath)) {
             $this->logger->notice(sprintf('No gif for today (nbDays = %s)', $nbDays));
 
-            return 0;
+            return self::SUCCESS;
         }
 
         $content = new Content($this->estCeQueCEst->bientotLaClasseVerte());
@@ -69,7 +64,7 @@ class PostGifCommand extends Command
             ]);
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 
     private function getSlackPayload(Content $content, string $imagePublicPath): array
