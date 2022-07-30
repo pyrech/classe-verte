@@ -5,27 +5,23 @@ namespace App\Command;
 use App\Content;
 use App\EstCeQueCEst;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+#[AsCommand(name: 'app:post-gif')]
 class PostGifCommand extends Command
 {
-    protected static $defaultName = 'app:post-gif';
-
-    private EstCeQueCEst $estCeQueCEst;
-    private HttpClientInterface $httpClient;
-    private LoggerInterface $logger;
-    private string $kernelProjectDir;
-
-    public function __construct(EstCeQueCEst $estCeQueCEst, HttpClientInterface $httpClient, LoggerInterface $logger, string $kernelProjectDir)
-    {
-        $this->estCeQueCEst = $estCeQueCEst;
-        $this->httpClient = $httpClient;
-        $this->logger = $logger;
-        $this->kernelProjectDir = $kernelProjectDir;
+    public function __construct(
+        private EstCeQueCEst $estCeQueCEst,
+        private HttpClientInterface $httpClient,
+        private LoggerInterface $logger,
+        private string $kernelProjectDir,
+        private string $slackWebhookUrl,
+    ){
         parent::__construct();
     }
 
@@ -56,7 +52,7 @@ class PostGifCommand extends Command
         try {
             $response = $this->httpClient->request(
                 'POST',
-                $_SERVER['SLACK_WEBHOOK_URL'],
+                $this->slackWebhookUrl,
                 [
                     'json' => $payload,
                 ]

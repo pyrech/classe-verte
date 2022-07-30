@@ -11,6 +11,7 @@
         "symfony/framework-bundle": "*",
         "symfony/http-client": "*",
         "symfony/monolog-bundle": "^3.6",
+        "symfony/runtime": "*",
         "symfony/twig-bundle": "*",
         "symfony/yaml": "*"
     },
@@ -18,6 +19,7 @@
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "*",
         "symfony/css-selector": "*",
+        "symfony/debug-bundle": "*",
         "symfony/phpunit-bridge": "*",
         "symfony/stopwatch": "*",
         "symfony/web-profiler-bundle": "*"

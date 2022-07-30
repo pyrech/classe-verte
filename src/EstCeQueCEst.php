@@ -17,16 +17,25 @@ class EstCeQueCEst
     const IT_S_NOW = 'now';
     const IT_S_OVER = 'over';
 
-    /** @var \DateTime */
-    private $start;
+    private \DateTime $start;
+    private \DateTime $end;
 
-    /** @var \DateTime */
-    private $end;
-
-    public function __construct(string $start, string $end)
-    {
+    public function __construct(
+        string $start,
+        string $end,
+    ) {
         $this->start = new \DateTime($start);
         $this->end = new \DateTime($end);
+    }
+
+    public function getStart(): \DateTime
+    {
+        return $this->start;
+    }
+
+    public function getEnd(): \DateTime
+    {
+        return $this->end;
     }
 
     /**
