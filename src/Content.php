@@ -39,7 +39,7 @@ class Content
             case EstCeQueCEst::MORE_THAN_60_DAYS:
                 return 'C\'est dans looooongtemps 😭';
             case EstCeQueCEst::MORE_THAN_30_DAYS:
-                return 'Encore quelques semaines à patienter 🥹 !';
+                return 'Mais encore plusieurs semaines à patienter 🥹 !';
             case EstCeQueCEst::MORE_THAN_14_DAYS:
                 return 'Plus que quelques semaines à attendre 🫡 !';
             case EstCeQueCEst::MORE_THAN_7_DAYS:
