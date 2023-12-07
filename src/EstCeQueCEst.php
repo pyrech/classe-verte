@@ -4,6 +4,7 @@ namespace App;
 
 class EstCeQueCEst
 {
+    public const MORE_THAN_60_DAYS = '60j+';
     public const MORE_THAN_30_DAYS = '30j+';
     public const MORE_THAN_14_DAYS = '14j+';
     public const MORE_THAN_7_DAYS = '7j+';
@@ -62,6 +63,10 @@ class EstCeQueCEst
         // Normal counter
 
         $diff = $now->diff($this->start);
+
+        if ($diff->days > 60) {
+            return self::MORE_THAN_60_DAYS;
+        }
 
         if ($diff->days > 30) {
             return self::MORE_THAN_30_DAYS;

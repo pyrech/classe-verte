@@ -21,8 +21,12 @@ class EstCeQueCEstTest extends TestCase
     public function testItWorksWithoutAnyBug()
     {
         self::assertSame(
-            EstCeQueCEst::MORE_THAN_30_DAYS,
+            EstCeQueCEst::MORE_THAN_60_DAYS,
             $this->estCeQueCEst->bientotLaClasseVerte(new \DateTime('2017-07-15 12:00:00'))
+        );
+        self::assertSame(
+            EstCeQueCEst::MORE_THAN_30_DAYS,
+            $this->estCeQueCEst->bientotLaClasseVerte(new \DateTime('2017-08-15 12:00:00'))
         );
         self::assertSame(
             EstCeQueCEst::MORE_THAN_14_DAYS,

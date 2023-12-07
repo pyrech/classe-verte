@@ -12,8 +12,9 @@ class Content
     public function getTitle(): string
     {
         switch ($this->key) {
-            case EstCeQueCEst::MORE_THAN_30_DAYS:
+            case EstCeQueCEst::MORE_THAN_60_DAYS:
                 return 'Non !';
+            case EstCeQueCEst::MORE_THAN_30_DAYS:
             case EstCeQueCEst::MORE_THAN_14_DAYS:
             case EstCeQueCEst::MORE_THAN_7_DAYS:
             case EstCeQueCEst::MORE_THAN_3_DAYS:
@@ -36,12 +37,14 @@ class Content
     public function getSubtitle(): string
     {
         switch ($this->key) {
+            case EstCeQueCEst::MORE_THAN_60_DAYS:
+                return 'C\'est dans looooongtemps 😭';
             case EstCeQueCEst::MORE_THAN_30_DAYS:
-                return 'C\'est dans looooongtemps 😢';
+                return 'Encore quelques semaines à patienter 🥹 !';
             case EstCeQueCEst::MORE_THAN_14_DAYS:
-                return 'Encore quelques semaines à patienter !';
+                return 'Plus que quelques semaines à attendre 🫡 !';
             case EstCeQueCEst::MORE_THAN_7_DAYS:
-                return 'Moins de 2 semaines 🎉';
+                return 'C\'est dans moins de 2 semaines 🎉';
             case EstCeQueCEst::MORE_THAN_3_DAYS:
                 return 'C\'est bientôôôôt !';
             case EstCeQueCEst::MORE_THAN_2_DAYS:
