@@ -6,8 +6,7 @@ class Content
 {
     public function __construct(
         private string $key,
-    ) {
-    }
+    ) {}
 
     public function getTitle(): string
     {
