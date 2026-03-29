@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests;
 
 use App\EstCeQueCEst;
@@ -7,8 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class EstCeQueCEstTest extends TestCase
 {
-    /** @var EstCeQueCEst */
-    private $estCeQueCEst;
+    private EstCeQueCEst $estCeQueCEst;
 
     protected function setUp(): void
     {
@@ -18,7 +19,7 @@ class EstCeQueCEstTest extends TestCase
         );
     }
 
-    public function testItWorksWithoutAnyBug()
+    public function testItWorksWithoutAnyBug(): void
     {
         self::assertSame(
             EstCeQueCEst::MORE_THAN_60_DAYS,

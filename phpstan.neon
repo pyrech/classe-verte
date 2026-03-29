@@ -1,0 +1,13 @@
+parameters:
+    level: 9
+    paths:
+        - config
+        - public
+        - src
+    scanFiles:
+        - .castor.stub.php
+    tmpDir: tools/phpstan/var
+    inferPrivatePropertyTypeFromConstructor: true
+
+    symfony:
+        containerXmlPath: 'var/cache/dev/App_KernelDevDebugContainer.xml'
