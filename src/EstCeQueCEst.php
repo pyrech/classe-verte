@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App;
 
 class EstCeQueCEst
@@ -42,7 +44,7 @@ class EstCeQueCEst
     /**
      * @internal \DateTime $now
      */
-    public function bientotLaClasseVerte(\DateTime $now = null): string
+    public function bientotLaClasseVerte(?\DateTime $now = null): string
     {
         $now = $now ?: new \DateTime();
 
@@ -107,7 +109,7 @@ class EstCeQueCEst
         return self::LESS_THAN_1_HOUR;
     }
 
-    public function getRemainingDays(\DateTime $now = null): int
+    public function getRemainingDays(?\DateTime $now = null): int
     {
         $now = $now ?: new \DateTime();
 

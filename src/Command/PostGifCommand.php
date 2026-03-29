@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Content;
@@ -33,10 +35,10 @@ class PostGifCommand extends Command
             return self::SUCCESS;
         }
 
-        $imagePublicPath = sprintf('images/J%s.gif', $nbDays);
+        $imagePublicPath = \sprintf('images/J%s.gif', $nbDays);
 
         if (!file_exists($this->kernelProjectDir . '/public/' . $imagePublicPath)) {
-            $this->logger->notice(sprintf('No gif for today (nbDays = %s)', $nbDays));
+            $this->logger->notice(\sprintf('No gif for today (nbDays = %s)', $nbDays));
 
             return self::SUCCESS;
         }
@@ -56,7 +58,7 @@ class PostGifCommand extends Command
             $statusCode = $response->getStatusCode();
 
             if (200 !== $statusCode) {
-                $this->logger->error(sprintf('Error when sending notification to Slack, %s returned', $statusCode));
+                $this->logger->error(\sprintf('Error when sending notification to Slack, %s returned', $statusCode));
             }
         } catch (TransportExceptionInterface $e) {
             $this->logger->error('Fail to send notification to Slack', [
@@ -67,6 +69,9 @@ class PostGifCommand extends Command
         return self::SUCCESS;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getSlackPayload(Content $content, string $imagePublicPath): array
     {
         return [
@@ -74,9 +79,9 @@ class PostGifCommand extends Command
             'icon_url' => 'https://estcequecestbientotlaclasseverte.fr/logo.png',
             'attachments' => [
                 [
-                    'title' => sprintf('%s %s', $content->getTitle(), $content->getSubtitle()),
+                    'title' => \sprintf('%s %s', $content->getTitle(), $content->getSubtitle()),
                     'title_link' => 'https://estcequecestbientotlaclasseverte.fr',
-                    'fallback' => sprintf('%s %s', $content->getTitle(), $content->getSubtitle()),
+                    'fallback' => \sprintf('%s %s', $content->getTitle(), $content->getSubtitle()),
                     'image_url' => 'https://estcequecestbientotlaclasseverte.fr/' . $imagePublicPath . '?' . uniqid(),
                 ],
             ],

@@ -1,3 +1,13 @@
+/.castor.stub.php
+/infrastructure/docker/docker-compose.override.yml
+/infrastructure/docker/services/router/certs/*.pem
+
+# Tools
+.php-cs-fixer.cache
+.twig-cs-fixer.cache
+
+/config/reference.php
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -12,12 +22,8 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
 ###> phpunit/phpunit ###
 /phpunit.xml
-.phpunit.result.cache
+/.phpunit.cache/
 ###< phpunit/phpunit ###
-
-###> friendsofphp/php-cs-fixer ###
-/.php-cs-fixer.php
-/.php-cs-fixer.cache
-###< friendsofphp/php-cs-fixer ###

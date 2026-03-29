@@ -1,48 +1,59 @@
-name: CI
+name: Continuous Integration
 
-on:
+"on":
   push:
-    branches: [ main ]
+    branches: ["main"]
   pull_request:
+    branches: ["main"]
   schedule:
-    -   cron: '0 0 * * MON'
+    - cron: "0 0 * * MON"
+
+permissions:
+  contents: read
+  packages: read
+
+env:
+  # Fix for symfony/color detection. We know GitHub Actions can handle it
+  ANSICON: 1
+  # CASTOR_CONTEXT: ci
 
 jobs:
-  check-cs:
-    name: Check Coding Standards
+  check-dockerfiles:
+    name: Check Dockerfile
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
 
-      - name: Setup PHP, with composer and extensions
-        uses: shivammathur/setup-php@v2
+      - name: Check php/Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
         with:
-          php-version: 8.1
+          dockerfile: infrastructure/docker/services/php/Dockerfile
 
-      - name: Install Composer dependencies
-        run: |
-          composer update --prefer-dist --no-interaction
-
-      - name: Run php-cs-fixer
-        run: |
-          vendor/bin/php-cs-fixer fix --dry-run --diff --verbose
-
-  tests:
-    name: Run tests
+  ci:
+    name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Setup PHP, with composer and extensions
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.1
+      - name: Log in to registry
+        shell: bash
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
-      - name: Install Composer dependencies
-        run: |
-          composer update --prefer-dist --no-interaction
+      - name: setup-castor
+        uses: castor-php/setup-castor@v1.0.0
 
-      - name: Run PHPUnit
-        run: php bin/phpunit
+      - uses: actions/checkout@v5
+
+      - name: "Build and start the infrastructure"
+        run: "castor start"
+
+      - name: "Check PHP coding standards"
+        run: "castor qa:cs --dry-run"
+
+      - name: "Run PHPStan"
+        run: "castor qa:phpstan"
+
+      - name: "Run PHPUnit"
+        run: "castor qa:phpunit"

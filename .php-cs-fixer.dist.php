@@ -2,13 +2,14 @@
 
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
-    ->exclude('var')
+    ->ignoreVCSIgnored(true)
+    ->ignoreDotFiles(false)
 ;
 
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHP80Migration' => true,
+        '@PHP81Migration' => true,
         '@PhpCsFixer' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
