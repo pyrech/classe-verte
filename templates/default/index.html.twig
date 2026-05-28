@@ -64,36 +64,54 @@
 {% block javascripts %}
     {{ parent() }}
     {% if now < start %}
-        <script async>
-            (async () => {
-                var dn = document.querySelector('.counter .days .number');
-                var du = document.querySelector('.counter .days .unit');
-                var hn = document.querySelector('.counter .hours .number');
-                var hu = document.querySelector('.counter .hours .unit');
-                var mn = document.querySelector('.counter .minutes .number');
-                var mu = document.querySelector('.counter .minutes .unit');
-                var sn = document.querySelector('.counter .seconds .number');
-                var su = document.querySelector('.counter .seconds .unit');
+        <script>
+            (() => {
+                var initCounter = function() {
+                    var counter = document.querySelector('.counter');
+                    if (!counter) {
+                        return;
+                    }
 
-                var a = function(c, s, p) {return c > 1 ? p : s;};
-                var b = function() {
-                    var t = {{ start.timestamp }} - new Date().getTime()/1000;
-                    var d = Math.floor( t/(60*60*24) );
-                    var h = Math.floor( (t/(60*60)) % 24 );
-                    var m = Math.floor( (t/60) % 60 );
-                    var s = Math.floor( (t) % 60 );
+                    var dn = counter.querySelector('.days .number');
+                    var du = counter.querySelector('.days .unit');
+                    var hn = counter.querySelector('.hours .number');
+                    var hu = counter.querySelector('.hours .unit');
+                    var mn = counter.querySelector('.minutes .number');
+                    var mu = counter.querySelector('.minutes .unit');
+                    var sn = counter.querySelector('.seconds .number');
+                    var su = counter.querySelector('.seconds .unit');
 
-                    dn.innerHTML = d;
-                    du.innerHTML = a(d, 'jour', 'jours');
-                    hn.innerHTML = h;
-                    hu.innerHTML = a(h, 'heure', 'heures');
-                    mn.innerHTML = m;
-                    mu.innerHTML = a(m, 'minute', 'minutes');
-                    sn.innerHTML = s;
-                    su.innerHTML = a(s, 'seconde', 'secondes');
+                    if (!dn || !du || !hn || !hu || !mn || !mu || !sn || !su) {
+                        return;
+                    }
+
+                    var a = function(c, s, p) {return c > 1 ? p : s;};
+                    var b = function() {
+                        var t = {{ start.timestamp }} - new Date().getTime() / 1000;
+                        var d = Math.floor( t / (60 * 60 * 24) );
+                        var h = Math.floor( (t / (60 * 60)) % 24 );
+                        var m = Math.floor( (t / 60) % 60 );
+                        var s = Math.floor( t % 60 );
+
+                        dn.innerHTML = d;
+                        du.innerHTML = a(d, 'jour', 'jours');
+                        hn.innerHTML = h;
+                        hu.innerHTML = a(h, 'heure', 'heures');
+                        mn.innerHTML = m;
+                        mu.innerHTML = a(m, 'minute', 'minutes');
+                        sn.innerHTML = s;
+                        su.innerHTML = a(s, 'seconde', 'secondes');
+                    };
+
+                    window.setInterval(b, 1000);
+                    b();
                 };
-                window.setInterval(b, 1000);
-                b();
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', initCounter, {once: true});
+                } else {
+                    initCounter();
+                }
             })();
         </script>
     {% endif %}
