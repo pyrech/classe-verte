@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use Castor\Attribute\AsTask;
 
 use function Castor\guard_min_version;
